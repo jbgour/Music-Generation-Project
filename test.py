@@ -23,11 +23,6 @@ for file in glob.glob("data/2002/*.mid"):
         elif isinstance(element, chord.Chord):
             notes.append('.'.join(str(n.pitch) for n in element.notes))
 
-    counter += 1
-
-    if counter == 3:
-        break
-
 
 pitchnames = sorted(set(item for item in notes))
 
