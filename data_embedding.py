@@ -49,15 +49,23 @@ def embedding(year):
         counter += 1
 
 
-year_list = [2002, 2004, 2006, 2008, 2009, 2011, 2013, 2014, 2015, 2017, 2018]
+msg = input("do you reaaly want to run the embedding (y/n)")
 
-processes = [ ]
-for y in year_list:
-    t = multiprocessing.Process(target=embedding, args=(y,))
-    processes.append(t)
-    t.start()
+if msg == 'y':
 
-for one_process in processes:
-    one_process.join()
+    year_list = [2002, 2004, 2006, 2008, 2009, 2011, 2013, 2014, 2015, 2017, 2018]
 
-print("Done!")
+    processes = []
+    for y in year_list:
+        t = multiprocessing.Process(target=embedding, args=(y,))
+        processes.append(t)
+        t.start()
+
+    for one_process in processes:
+        one_process.join()
+
+    print("Done!")
+
+else:
+
+    print('aborting')

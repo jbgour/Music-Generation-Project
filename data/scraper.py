@@ -9,10 +9,9 @@ for elem in elems:
     titre = elem.get_attribute("href")
     if titre.endswith(".MID") or titre.endswith(".mid"):
         try:
-            driver.execute_script('''window.open("'''+titre+'''","_blank");''')
+            driver.execute_script('''window.open("''' + titre + '''","_blank");''')
         except:
             pass
-
 
 assert "No results found." not in driver.page_source
 driver.close()
