@@ -13,7 +13,6 @@ def embedding(year):
     counter = 0
     for file in glob.glob(folder_name):
         midi = converter.parse(file)
-
         print("Parsing %s" % file)
         print(str(year) + ' : ' + str(counter) + '/' + str(n))
 
@@ -38,34 +37,44 @@ def embedding(year):
                 notesInt.append('.'.join(str(n.pitch) for n in element.notes))
 
         notes += notesInt
-        log.append(file + ':' + str(len(notesInt)))
+        #log.append(file + ':' + str(len(notesInt)))
 
-        with open('data/notes_' + str(year), 'wb') as filepath:
-            pickle.dump(notes, filepath)
-
-        with open('data/log_' + str(year), 'wb') as filepath:
-            pickle.dump(log, filepath)
+        # with open('data/notes_' + str(year), 'wb') as filepath:
+        #     pickle.dump(notes, filepath)
+        #
+        # with open('data/log_' + str(year), 'wb') as filepath:
+        #     pickle.dump(log, filepath)
 
         counter += 1
 
 
-msg = input("do you reaaly want to run the embedding (y/n)")
+def full_embedding():
+    msg = input("do you reaaly want to run the embedding (y/n)")
 
-if msg == 'y':
+    if msg == 'y':
 
-    year_list = [2002, 2004, 2006, 2008, 2009, 2011, 2013, 2014, 2015, 2017, 2018]
+        year_list = [2002, 2004, 2006, 2008, 2009, 2011, 2013, 2014, 2015, 2017, 2018]
+        year_list = [2002]
 
-    processes = []
-    for y in year_list:
-        t = multiprocessing.Process(target=embedding, args=(y,))
-        processes.append(t)
-        t.start()
+        processes = []
+        for y in year_list:
+            t = multiprocessing.Process(target=embedding, args=(y,))
+            processes.append(t)
+            t.start()
 
-    for one_process in processes:
-        one_process.join()
+        for one_process in processes:
+            one_process.join()
 
-    print("Done!")
+        print("Done!")
 
-else:
+    else:
 
-    print('aborting')
+        print('aborting')
+
+def test_embedding():
+    year = 2002
+    embedding(year)
+
+
+test_embedding()
+
