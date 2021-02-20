@@ -1,13 +1,16 @@
 from music21 import converter, instrument, note, chord
 import glob
 import pickle
-import pandas as pd
 import multiprocessing
 
 
 def embedding(year):
+    """
+    embedding of MIDI files
+    :param year: int, year folder
+    :return: pickle file containing the pitches
+    """
     notes = []
-    log = []
     folder_name = 'data/' + str(year) + '/*'
     n = len(glob.glob(folder_name))
     counter = 0
@@ -15,9 +18,7 @@ def embedding(year):
         midi = converter.parse(file)
         print("Parsing %s" % file)
         print(str(year) + ' : ' + str(counter) + '/' + str(n))
-
         notes_to_parse = None
-
         notesInt = []
 
         try:  # file has instrument parts
@@ -37,25 +38,22 @@ def embedding(year):
                 notesInt.append('.'.join(str(n.pitch) for n in element.notes))
 
         notes += notesInt
-        #log.append(file + ':' + str(len(notesInt)))
 
-        # with open('data/notes_' + str(year), 'wb') as filepath:
-        #     pickle.dump(notes, filepath)
-        #
-        # with open('data/log_' + str(year), 'wb') as filepath:
-        #     pickle.dump(log, filepath)
+        with open('data/notes_' + str(year), 'wb') as filepath:
+            pickle.dump(notes, filepath)
 
         counter += 1
 
 
 def full_embedding():
+    """
+    parallelization of the embedding phase
+    """
     msg = input("do you reaaly want to run the embedding (y/n)")
 
     if msg == 'y':
 
         year_list = [2002, 2004, 2006, 2008, 2009, 2011, 2013, 2014, 2015, 2017, 2018]
-        year_list = [2002]
-
         processes = []
         for y in year_list:
             t = multiprocessing.Process(target=embedding, args=(y,))
@@ -71,10 +69,8 @@ def full_embedding():
 
         print('aborting')
 
-def test_embedding():
-    year = 2002
-    embedding(year)
 
+if __name__ == '__main__':
+    full_embedding()
 
-test_embedding()
 
