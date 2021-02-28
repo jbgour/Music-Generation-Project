@@ -130,3 +130,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/data/2002/
+/data/2004/
+/data/2006/
+/data/2008/
+/data/2009/
+/data/2011/
+/data/2013/
+/data/2014/
+/data/2017/
+/data/2018/
+/data/2015/

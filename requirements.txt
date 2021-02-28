@@ -5,3 +5,4 @@ music21
 pickle-mixin
 pandas
 keras
+midiutil

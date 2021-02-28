@@ -109,6 +109,6 @@ def full_embedding():
 
 
 if __name__ == '__main__':
-    embedding_by_file(2002)
+    full_embedding()
 
 
